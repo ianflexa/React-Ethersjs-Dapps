@@ -22,6 +22,12 @@ const WalletSetup = () => {
         } else {
             console.log("not authorized account");
         }
+
+        ethereum.on('accountsChanged', function (accounts) {
+            // Time to reload your interface with accounts[0]!
+            setCurrentAccount(accounts[0]);
+            console.log(accounts[0])
+        });
     }
 
     useEffect(() => {
@@ -29,24 +35,28 @@ const WalletSetup = () => {
     }, []);
 
     const connectWallet = async () => {
-    try {
-        const { ethereum } = window;
+        try {
+            const { ethereum } = window;
 
-        if(!ethereum) {
-            alert("Get Metamask!");
-        return;
+            if(!ethereum) {
+                alert("Get Metamask!");
+            return;
+            }
+
+            const accounts = await ethereum.request({
+                method: 'eth_requestAccounts'
+            });
+            console.log("Connected to: ", accounts[0]);
+            setCurrentAccount(accounts[0]);
+            
+        } catch (error) {
+            console.log(error);
         }
-
-        const accounts = await ethereum.request({
-            method: 'eth_requestAccounts'
-        });
-        console.log("Connected to: ", accounts[0]);
-        setCurrentAccount(accounts[0]);
-    } catch (error) {
-      console.log(error);
+        
     }
-  }
 
+
+    
     return (
         <>
             {currentAccount === "" ? (
