@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect} from 'react'
+import { ethers, BigNumber } from 'ethers';
+import WalletSetup from './metamask';
+import * as x from './styles/geral'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <x.StyledApp>
+        <h1 style={{fontFamily: 'Segoe UI'}}>MultiSig Wallet Dapp</h1>
+        <WalletSetup />
+      </x.StyledApp>
+    </>
   );
 }
 
