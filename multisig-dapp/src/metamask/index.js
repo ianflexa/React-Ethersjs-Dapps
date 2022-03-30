@@ -65,7 +65,7 @@ const WalletSetup = () => {
                 </>
             ) : (
                 <>
-                    <div> Connect to: {currentAccount}</div>
+                    <s.StyledDesc> Connect to: {currentAccount}</s.StyledDesc>
                 </>
             )}
         </>

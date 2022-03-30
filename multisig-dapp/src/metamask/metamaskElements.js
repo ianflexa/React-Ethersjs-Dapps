@@ -8,3 +8,7 @@ export const StyledButton = styled.button`
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
 `
+
+export const StyledDesc = styled.p`
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+`
