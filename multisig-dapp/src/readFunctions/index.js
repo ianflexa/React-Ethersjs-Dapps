@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { ethers, BigNumber } from 'ethers';
 import { CONFIG } from '../blockchain/config';
 import abi from "../blockchain/abi.json";
+import { getAddress } from 'ethers/lib/utils';
 
 const truncate = (input, len, len2, len3) =>
   input.length > len? `${input.substring(0, len)}and ${input.substring(43, len2)}and ${input.substring(84, len3)} ` :
@@ -14,6 +15,8 @@ const ReadFunctions = () => {
     const [TxId, setTxId] = useState(0);
     const [Addr, setAddr] = useState("");
     const [totalCount, setTotalCount] = useState();
+    const [getTrx, setGetTrx] = useState([]);
+    const [AddConfirmed, setAddConfirmed] = useState();
 
     //get owners
     useEffect( async () => {
@@ -49,7 +52,14 @@ const ReadFunctions = () => {
                 const mswContract = new ethers.Contract(CONFIG.CONTRACT_ADDRESS, abi.abi, provider);
                 setTxId(TxId);
                 const getTrx = await mswContract.getTransaction(BigNumber.from(TxId));
-                console.log("Transaction: ", getTrx);
+                setGetTrx([
+                    getAddress(getTrx[0])+ " ",
+                    BigNumber.from(getTrx[1]._hex).toString() + " ",
+                    getTrx[2] + " ",
+                    getTrx[3] + " ",
+                    (getTrx[4]).toString()
+                ]);
+                console.log("foi: ", getTrx)
             }
         } catch (error) {
             console.log(error);
@@ -66,7 +76,8 @@ const ReadFunctions = () => {
                 setTxId(TxId);
                 setAddr(Addr);
                 const addrConfirmed = await mswContract.isConfirmed(BigNumber.from(TxId), Addr)
-                console.log("Verify: ", addrConfirmed);
+                setAddConfirmed(addrConfirmed.toString());
+                console.log("Verify: ", AddConfirmed);
         }
         } catch (error) {
             console.log(error)
@@ -87,13 +98,40 @@ const ReadFunctions = () => {
         </div>
         <div>
             <h2>Transactions</h2>
-            <input onChange={e => setTxId(e.target.value)} value={TxId}/>
+            <input onChange={e => setTxId(e.target.value)} type="text"
+                    name="TxId"
+                    placeholder="Transaction Index"/>
             <button onClick={getTransactions}> Get Transaction</button>
+            <div>
+                <table className="">
+                    <thead>
+                        <tr>
+                        <th>Address</th>
+                        <th>Value</th>
+                        <th>Data</th>
+                        <th>Executed</th>
+                        <th>number of Confirmations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th>{getTrx[0]}</th>
+                        <th>{getTrx[1]}</th>
+                        <th>{getTrx[2]}</th>
+                        <th>{getTrx[3]}</th>
+                        <th>{getTrx[4]}</th>
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>
         </div>
         <div>
-            <h2>isConfirmed?</h2>
-            <input onChange={e => setTxId(e.target.value)} value={TxId}/>
-            <input onChange={e => setAddr(e.target.value)} value={Addr}/>
+            <h2>isConfirmed? {AddConfirmed}</h2>
+            <input onChange={e => setTxId(e.target.value)} type="text"
+                    name="TxId"
+                    placeholder="Transaction Index"/>
+            <input onChange={e => setAddr(e.target.value)}
+            name="addr"  placeholder="Owner address"/>
             <button onClick={verifyConfirmed}> Verify!</button>
         </div>
     </>

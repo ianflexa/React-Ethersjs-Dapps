@@ -5,6 +5,7 @@ export const StyledApp = styled.div`
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `
 
 export const StyledMain = styled.div`
