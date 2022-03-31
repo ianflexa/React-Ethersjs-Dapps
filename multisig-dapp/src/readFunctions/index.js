@@ -101,38 +101,25 @@ const ReadFunctions = () => {
             <input onChange={e => setTxId(e.target.value)} type="text"
                     name="TxId"
                     placeholder="Transaction Index"/>
-            <button onClick={getTransactions}> Get Transaction</button>
+            <button onClick={getTransactions} style={{marginLeft: 10}}> Get Transaction</button>
             <div>
-                <table className="">
-                    <thead>
-                        <tr>
-                        <th>Address</th>
-                        <th>Value</th>
-                        <th>Data</th>
-                        <th>Executed</th>
-                        <th>number of Confirmations</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th>{getTrx[0]}</th>
-                        <th>{getTrx[1]}</th>
-                        <th>{getTrx[2]}</th>
-                        <th>{getTrx[3]}</th>
-                        <th>{getTrx[4]}</th>
-                        </tr>
-                    </tbody>
-                    </table>
+                <ul>
+                    <li>Address: {getTrx[0]}</li>
+                    <li>Value: {getTrx[1]}</li>
+                    <li>Data: {getTrx[2]}</li>
+                    <li>Executed: {getTrx[3]}</li>
+                    <li>Number of Confirmartions: {getTrx[4]}</li>
+                </ul>
             </div>
         </div>
         <div>
             <h2>isConfirmed? {AddConfirmed}</h2>
             <input onChange={e => setTxId(e.target.value)} type="text"
                     name="TxId"
-                    placeholder="Transaction Index"/>
+                    placeholder="Transaction Index" style={{marginLeft: 10}}/>
             <input onChange={e => setAddr(e.target.value)}
-            name="addr"  placeholder="Owner address"/>
-            <button onClick={verifyConfirmed}> Verify!</button>
+            name="addr"  placeholder="Owner address" style={{marginLeft: 10}}/>
+            <button onClick={verifyConfirmed} style={{marginLeft: 10}}> Verify!</button>
         </div>
     </>
   )

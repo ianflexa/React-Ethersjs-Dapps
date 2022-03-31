@@ -120,6 +120,22 @@ const WriteContract = () => {
         }
     }
 
+    const revokeTX = async () => {
+        try {
+            const { ethereum } = window;
+            if(ethereum) {
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                const mswContract = new ethers.Contract(CONFIG.CONTRACT_ADDRESS, abi.abi, signer);
+                const rvkTx = await mswContract.revokeConfirmation(BigNumber.from(TxId));
+                await rvkTx.wait();
+                console.log("Revoked: ", rvkTx);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
 
   return (
@@ -128,16 +144,16 @@ const WriteContract = () => {
         <form >
         <div>
             <h2>Submit Transaction</h2>
-            <input onChange={e => setAddrTo(e.target.value)} placeholder="Address to" />
+            <input onChange={e => setAddrTo(e.target.value)} placeholder="Address to" style={{marginLeft: 10}}/>
             <input onChange={e => setValue(e.target.value)} 
-            placeholder="Value" />
-            <input onChange={e => setData(e.target.value)} placeholder="Data" />
+            placeholder="Value" style={{marginLeft: 10}} />
+            <input onChange={e => setData(e.target.value)} placeholder="Data" style={{marginLeft: 10}} />
             <button
                 onClick={(e) => {
                     e.preventDefault();
                     SubmitTrx();
                 }}
-            >Submit!</button>
+                style={{marginLeft: 10}}>Submit!</button>
             
         
         <h3>Recent Submited:</h3>
@@ -160,7 +176,7 @@ const WriteContract = () => {
         <input onChange={e => setTxId(e.target.value)} type="text"
                     name="TxId"
                     placeholder="Transaction Index"/>
-        <button onClick={confirmTx}> Aprrove!</button>
+        <button onClick={confirmTx} style={{marginLeft: 10}}> Aprrove!</button>
         <div>
             {subEvent.map(subEvent =>
             <>
@@ -174,8 +190,15 @@ const WriteContract = () => {
         <h2>Execute Transaction</h2>
         <input onChange={e => setTxId(e.target.value)} type="text"
                     name="TxId"
+                    placeholder="Transaction Index" />
+        <button onClick={executeTX} style={{marginLeft: 10}}> Execute!</button>
+        </div>
+        <div>
+        <h2>Revoke Transaction</h2>
+        <input onChange={e => setTxId(e.target.value)} type="text"
+                    name="TxId"
                     placeholder="Transaction Index"/>
-        <button onClick={executeTX}> Execute!</button>
+        <button onClick={revokeTX} style={{marginLeft: 10}}> Revoke!</button>
         </div>
     </>
   )

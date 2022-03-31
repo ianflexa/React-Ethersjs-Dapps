@@ -10,8 +10,10 @@ function App() {
   return (
     <>
       <x.StyledApp>
-        <h1>MultiSig Wallet Dapp</h1>
+        <x.StyledContainer>
+        <x.TextTitle style={{ marginTop: 5, marginLeft: 10 }}>MultiSig Wallet Dapp</x.TextTitle>
         <WalletSetup />
+        </x.StyledContainer>
         <ReadFunctions />
         <WriteContract />
       </x.StyledApp>

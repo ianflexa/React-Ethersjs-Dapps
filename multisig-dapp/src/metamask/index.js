@@ -61,11 +61,21 @@ const WalletSetup = () => {
         <>
             {currentAccount === "" ? (
                 <>
-                    <s.StyledButton onClick={() => { connectWallet()}}>connect Wallet</s.StyledButton>
+                    <s.StyledDiv>
+                        <s.StyledButton
+                            onClick={() => { connectWallet()}}
+                        >
+                            connect Wallet
+                        </s.StyledButton>
+                    </s.StyledDiv>
                 </>
             ) : (
                 <>
-                    <s.StyledDesc> Connect to: {currentAccount}</s.StyledDesc>
+                    <s.StyledDiv>
+                        <s.StyledDesc>
+                            Connect to: {currentAccount}
+                        </s.StyledDesc>
+                    </s.StyledDiv>
                 </>
             )}
         </>

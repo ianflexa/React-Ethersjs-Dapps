@@ -14,3 +14,42 @@ export const StyledMain = styled.div`
     display: flex;
     flex-direction: column;
 `
+export const StyledContainer = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    //justify-content: center;
+    align-items: flex-start;
+    
+    width: 100%;
+    @media (min-width: 767px) {
+        flex-direction: row;
+    }
+`
+
+
+
+
+
+
+
+
+
+export const TextTitle = styled.p`
+  color: var(--primary-text);
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.6;
+`;
+
+export const TextSubTitle = styled.p`
+  color: var(--primary-text);
+  font-size: 18px;
+  line-height: 1.6;
+`;
+
+export const TextDescription = styled.p`
+  color: var(--primary-text);
+  font-size: 16px;
+  line-height: 1.6;
+`;
